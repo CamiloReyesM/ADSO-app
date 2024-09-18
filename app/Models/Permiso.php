@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Model
+class Permiso extends Model
 {
     use HasFactory;
-    protected $table = 'usuarios';
+    protected $table = 'permisos';
 
     // Campos asignables en masa
-    protected $fillable = ['tipo_usuario_id', 'email', 'password'];
+    protected $fillable = ['nombre'];
 
-    // Relación con tipo de tipo de usuario
-    public function tipousuario()
+    // Relación con usuarios
+    public function usuarios()
     {
-        return $this->belongsTo(TipoUsuario::class, 'tipo_usuario_id');
+        return $this->belongsToMany(Usuario::class, 'usuario_id');
     }
 
     // Relación con usuario de usauario permiso

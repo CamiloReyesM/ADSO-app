@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrdenCompra;
 use App\Models\Producto;
+use App\Models\Proveedor;
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 
-class ProductoController extends Controller
+class OrdenCompraController extends Controller
 {
     public function getData(Request $request)
     {
@@ -23,21 +26,24 @@ class ProductoController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'precio' => 'nullable|numeric',
-            'clase_id' => 'required|exists:clases,id',
+            'producto_id' => 'required|exists:productos,id',
             'proveedor_id' => 'required|exists:proveedores,id', // Verificar que el ID exista en la tabla 'proveedores'
+            'usuario_id' => 'required|exists:usuarios,id',
+            'precio' => 'nullable|numeric',
         ]);
 
-        $producto = Producto::create([
+        $ordencompra = OrdenCompra::create([
             'nombre' => $request->nombre,
-            'precio' => $request->precio,
-            'clase_id' => $request->clase_id,
+            'producto_id' => $request->producto_id,
             'proveedor_id' => $request->proveedor_id,
+            'usuario_id' => $request->usuario_id,
+            'cantidad' => $request->cantidad,
         ]);
 
         return response()->json([
             'status' => '200',
             'message' => 'guardado con exito',
-            'data' => $producto,
+            'data' => $ordencompra,
         ]);
 
     }
@@ -46,40 +52,32 @@ class ProductoController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'precio' => 'nullable|numeric',
-            'clase_id' => 'required|exists:clases,id',
+            'producto_id' => 'required|exists:productos,id',
             'proveedor_id' => 'required|exists:proveedores,id', // Verificar que el ID exista en la tabla 'proveedores'
+            'usuario_id' => 'required|exists:usuarios,id',
+            'precio' => 'nullable|numeric',
         ]);
 
-        $producto = Producto::findOrFail($id);
-        $producto->update([
+        $ordencompra = OrdenCompra::findOrFail($id);
+        $ordencompra->update([
             'nombre' => $request->nombre,
-            'precio' => $request->precio,
-            'clase_id' => $request->clase_id,
+            'producto_id' => $request->producto_id,
             'proveedor_id' => $request->proveedor_id,
+            'usuario_id' => $request->usuario_id,
+            'cantidad' => $request->cantidad,
         ]);
-        return response()->json([
-            'status' => '200',
-            'message' => 'guardado con exito',
-            'data' => $producto,
-        ]);
-        
-    }
-
-    public function response(Request $request){
         return response()->json([
             'status' => '200',
             'message' => 'actualizado con exito',
-            'data' => $producto,
+            'data' => $ordencompra,
         ]);
 
     }
 
     public function delete($id)
     {
-        $producto = Producto::findOrFail($id);
-        $producto->delete();
-
+        $ordencompra = OrdenCompra::findOrFail($id);
+        $ordencompra->delete();
         return response()->json([
             'status' => '200',
             'message' => 'eliminado con exito',

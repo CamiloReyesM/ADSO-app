@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Empleado;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class EmpleadoController extends Controller
 {
     public function getData(Request $request)
     {
@@ -23,49 +23,32 @@ class ClienteController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'empresa' => 'required|string|max:255', // Verificar que el ID exista en la tabla 'proveedores'
-            'cargo' => 'required|string|max:255',
+            'cargo_id' => 'required|exists:cargos,id', // Verificar que el ID exista en la tabla 'cargos'
+            'cc' => 'required|string|max:255',
             'telefono' => 'required|string|max:255',
         ]);
 
-        $cliente = Cliente::create([
+        $empleado = Empleado::create([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
-            'empresa' => $request->empresa,
-            'cargo' => $request->cargo,
+            'cargo_id' => $request->cargo_id,
+            'cc' => $request->cc,
             'telefono' => $request->telefono,
         ]);
 
         return response()->json([
             'status' => '200',
             'message' => 'guardado con exito',
-            'data' => $cliente,
+            'data' => $empleado,
         ]);
 
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
-            'empresa' => 'required|string|max:255', // Verificar que el ID exista en la tabla 'proveedores'
-            'cargo' => 'required|string|max:255',
-            'telefono' => 'required|string|max:255',
-        ]);
-
-        $cliente = cliente::findOrFail($id);
-        $cliente->update([
+        $empleado = Empleado::findOrFail($id);
+        $empleado->update([
             'nombre' => $request->nombre,
-            'apellido' => $request->apellido,
-            'empresa' => $request->empresa,
-            'cargo' => $request->cargo,
-            'telefono' => $request->telefono,
-        ]);
-        return response()->json([
-            'status' => '200',
-            'message' => 'guardado con exito',
-            'data' => $cliente,
         ]);
 
     }
@@ -74,15 +57,15 @@ class ClienteController extends Controller
         return response()->json([
             'status' => '200',
             'message' => 'actualizado con exito',
-            'data' => $cliente,
+            'data' => $empleado,
         ]);
 
     }
 
     public function delete($id)
     {
-        $cliente = Cliente::findOrFail($id);
-        $cliente->delete();
+        $empleado = Empleado::findOrFail($id);
+        $empleado->delete();
 
         return response()->json([
             'status' => '200',

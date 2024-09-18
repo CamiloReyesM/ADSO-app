@@ -2,52 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Clase;
 use Illuminate\Http\Request;
 
 class ClaseController extends Controller
 {
-    //
-
-    public function getData(Request $request){
-
-        $rta= 10+20;
+    public function getData(Request $request)
+    {
+        $rta = 10 + 20;
         return response()->json([
             'status' => '200',
             'message' => 'data...',
-            'result'=> $rta
+            'result' => $rta
         ]);
 
     }
 
-    public function save(Request $request){
+    public function save(Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        $clase = Clase::create([
+            'nombre' => $request->nombre,
+        ]);
         return response()->json([
             'status' => '200',
             'message' => 'guardado con exito',
-            'data' => $request->nombre,
+            'data' => $clase,
         ]);
 
     }
 
-    public function update(Request $request){
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        $clase = Clase::findOrFail($id);
+        $clase->update([
+            'nombre' => $request->nombre,
+        ]);
         return response()->json([
             'status' => '200',
-            'message' => 'guardado con exito'
+            'message' => 'actualizado con exito',
+            'data' => $clase,
         ]);
 
     }
 
-    public function response(Request $request){
+    public function delete($id)
+    {
+        $clase = Clase::findOrFail($id);
+        $clase->delete();
         return response()->json([
             'status' => '200',
-            'message' => 'guardado con exito'
-        ]);
-
-    }
-
-    public function delete(Request $request){
-        return response()->json([
-            'status' => '200',
-            'message' => 'se elimino con exito'
+            'message' => 'eliminado con exito',
         ]);
 
     }

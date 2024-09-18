@@ -3,7 +3,21 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\CargoController;
+use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\UsuarioPermisoController;
+use App\Http\Controllers\ProveedorController;
+use App\Http\Controllers\ClaseController;
+use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProductoEventoController;
+use App\Http\Controllers\OrdenCompraController;
+use App\Http\Controllers\EventoController;
+use App\Http\Controllers\FacturaController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,62 +34,87 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/tipousuarios/datos', [TipoUsuarioController::class, 'getData']);
+Route::post('/tipousuarios/save', [TipoUsuarioController::class, 'save']);
+Route::put('/tipousuarios/update/{id}', [TipoUsuarioController::class, 'update']);
+Route::delete('/tipousuarios/delete/{id}', [TipoUsuarioController::class, 'delete']);
+
 Route::get('/cargos/datos', [CargoController::class, 'getData']);
 Route::post('/cargos/save', [CargoController::class, 'save']);
-Route::put('/cargos/update', [CargoController::class, 'update']);
-Route::delete('/cargos/delete', [CargoController::class, 'delete']);
+Route::put('/cargos/update/{id}', [CargoController::class, 'update']);
+Route::delete('/cargos/delete/{id}', [CargoController::class, 'delete']);
 
-Route::get('/areas/datos', [CargoController::class, 'getData']);
-Route::post('/areas/save', [CargoController::class, 'save']);
-Route::put('/areas/update', [CargoController::class, 'update']);
-Route::delete('/areas/delete', [CargoController::class, 'delete']);
+Route::get('/empleados/datos', [EmpleadoController::class, 'getData']);
+Route::post('/empleados/save', [EmpleadoController::class, 'save']);
+Route::put('/empleados/update/{id}', [EmpleadoController::class, 'update']);
+Route::delete('/empleados/delete/{id}', [EmpleadoController::class, 'delete']);
 
-Route::get('/tipousuarios/datos', [CargoController::class, 'getData']);
-Route::post('/tipousuarios/save', [CargoController::class, 'save']);
-Route::put('/tipousuarios/update', [CargoController::class, 'update']);
-Route::delete('/tipousuarios/delete', [CargoController::class, 'delete']);
+Route::get('/usuarios/datos', [UsuarioController::class, 'getData']);
+Route::post('/usuarios/save', [UsuarioController::class, 'save']);
+Route::put('/usuarios/update/{id}', [UsuarioController::class, 'update']);
+Route::delete('/usuarios/delete/{id}', [UsuarioController::class, 'delete']);
 
-Route::get('/proveedors/datos', [CargoController::class, 'getData']);
-Route::post('/proveedors/save', [CargoController::class, 'save']);
-Route::put('/proveedors/update', [CargoController::class, 'update']);
-Route::delete('/proveedors/delete', [CargoController::class, 'delete']);
+Route::get('/permisos/datos', [PermisoController::class, 'getData']);
+Route::post('/permisos/save', [PermisoController::class, 'save']);
+Route::put('/permisos/update/{id}', [PermisoController::class, 'update']);
+Route::delete('/permisos/delete/{id}', [PermisoController::class, 'delete']);
 
-Route::get('/productos/datos', [CargoController::class, 'getData']);
-Route::post('/productos/save', [CargoController::class, 'save']);
-Route::put('/productos/update', [CargoController::class, 'update']);
-Route::delete('/productos/delete', [CargoController::class, 'delete']);
+Route::get('/usuariopermisos/datos', [UsuarioPermisoController::class, 'getData']);
+Route::post('/usuariopermisos/save', [UsuarioPermisoController::class, 'save']);
+Route::put('/usuariopermisos/update/{id}', [UsuarioPermisoController::class, 'update']);
+Route::delete('/usuariopermisos/delete/{id}', [UsuarioPermisoController::class, 'delete']);
 
-Route::get('/clases/datos', [CargoController::class, 'getData']);
-Route::post('/clases/save', [CargoController::class, 'save']);
-Route::put('/clases/update', [CargoController::class, 'update']);
-Route::delete('/clases/delete', [CargoController::class, 'delete']);
+Route::get('/proveedores/datos', [ProveedorController::class, 'getData']);
+Route::post('/proveedores/save', [ProveedorController::class, 'save']);
+Route::put('/proveedores/update/{id}', [ProveedorController::class, 'update']);
+Route::delete('/proveedores/delete/{id}', [ProveedorController::class, 'delete']);
 
-Route::get('/productoeventos/datos', [CargoController::class, 'getData']);
-Route::post('/productoeventos/save', [CargoController::class, 'save']);
-Route::put('/productoeventos/update', [CargoController::class, 'update']);
-Route::delete('/productoeventos/delete', [CargoController::class, 'delete']);
+Route::get('/clases/datos', [ClaseController::class, 'getData']);
+Route::post('/clases/save', [ClaseController::class, 'save']);
+Route::put('/clases/update/{id}', [ClaseController::class, 'update']);
+Route::delete('/clases/delete/{id}', [ClaseController::class, 'delete']);
 
-Route::get('/claseeventos/datos', [CargoController::class, 'getData']);
-Route::post('/claseeventos/save', [CargoController::class, 'save']);
-Route::put('/claseeventos/update', [CargoController::class, 'update']);
-Route::delete('/claseeventos/delete', [CargoController::class, 'delete']);
+Route::get('/productos/datos', [ProductoController::class, 'getData']);
+Route::post('/productos/save', [ProductoController::class, 'save']);
+Route::put('/productos/update/{id}', [ProductoController::class, 'update']);
+Route::delete('/productos/delete/{id}', [ProductoController::class, 'delete']);
 
-Route::get('/clientes/datos', [CargoController::class, 'getData']);
-Route::post('/clientes/save', [CargoController::class, 'save']);
-Route::put('/clientes/update', [CargoController::class, 'update']);
-Route::delete('/clientes/delete', [CargoController::class, 'delete']);
-//También se puede agrupar y se corta un poco el codigo, pero ambos son funcionales
+Route::get('/clientes/datos', [ClienteController::class, 'getData']);
+Route::post('/clientes/save', [ClienteController::class, 'save']);
+Route::put('/clientes/update/{id}', [ClienteController::class, 'update']);
+Route::delete('/clientes/delete/{id}', [ClienteController::class, 'delete']);
 
-// Route::cotroller(AutoController::class)->group(function () {
-    // Route::get('/clases/datos','getData');
-    // Route::post('/clases/save','save');
-    // Route::put('/clases/update','update');
-    // Route::delete('/clases/delete','delete');
+Route::get('/productoeventos/datos', [ProductoEventoController::class, 'getData']);
+Route::post('/productoeventos/save', [ProductoEventoController::class, 'save']);
+Route::put('/productoeventos/update/{id}', [ProductoEventoController::class, 'update']);
+Route::delete('/productoeventos/delete/{id}', [ProductoEventoController::class, 'delete']);
+
+Route::get('/ordencompras/datos', [OrdenCompraController::class, 'getData']);
+Route::post('/ordencompras/save', [OrdenCompraController::class, 'save']);
+Route::put('/ordencompras/update/{id}', [OrdenCompraController::class, 'update']);
+Route::delete('/ordencompras/delete/{id}', [OrdenCompraController::class, 'delete']);
+
+Route::get('/eventos/datos', [EventoController::class, 'getData']);
+Route::post('/eventos/save', [EventoController::class, 'save']);
+Route::put('/eventos/update/{id}', [EventoController::class, 'update']);
+Route::delete('/eventos/delete/{id}', [EventoController::class, 'delete']);
+
+Route::get('/facturas/datos', [facturaController::class, 'getData']);
+Route::post('/facturas/save', [facturaController::class, 'save']);
+Route::put('/facturas/update/{id}', [facturaController::class, 'update']);
+Route::delete('/facturas/delete/{id}', [facturaController::class, 'delete']);
+// //También se puede agrupar y se corta un poco el codigo, pero ambos son funcionales
+
+// // Route::cotroller(AutoController::class)->group(function () {
+//     // Route::get('/clases/datos','getData');
+//     // Route::post('/clases/save','save');
+//     // Route::put('/clases/update','update');
+//     // Route::delete('/clases/delete','delete');
     
 
-//     Route::post('login', 'login');
-//     Route::post('register', 'register');
-//     Route::post('logout', 'logout');
-//     Route::post('refresh', 'refresh');
-//     Route::post('me', 'me');
-// });
+// //     Route::post('login', 'login');
+// //     Route::post('register', 'register');
+// //     Route::post('logout', 'logout');
+// //     Route::post('refresh', 'refresh');
+// //     Route::post('me', 'me');
+// // });

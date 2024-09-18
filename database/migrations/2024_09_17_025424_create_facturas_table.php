@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFacturasTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateFacturasTable extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha');
-
-            $table->unsignedBigInteger('id_evento'); // Clave foránea
-            $table->foreign('id_evento')->references('id')->on('eventos')->onDelete('cascade'); // Clave foránea
-            
-            $table->unsignedBigInteger('id_cliente'); // Clave foránea
-            $table->foreign('id_cliente')->references('id')->on('clientes')->onDelete('cascade'); // Clave foránea
-            
+            $table->string('nombre');
+            $table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('evento_id');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->foreign('evento_id')->references('id')->on('eventos');
+            $table->decimal('monto', 12, 2);
             $table->timestamps();
         });
     }
