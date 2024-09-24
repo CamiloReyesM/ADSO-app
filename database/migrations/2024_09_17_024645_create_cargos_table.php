@@ -4,18 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductoEventosTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('producto_eventos', function (Blueprint $table) {
+        Schema::create('cargos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedBigInteger('id_clase'); // Clave foránea
-            $table->foreign('id_clase')->references('id')->on('clases')->onDelete('cascade'); // Clave foránea
+            $table->decimal('salario', 12, 2)->nullable();
+            $table->unsignedBigInteger('tipo_usuario_id');
+            $table->foreign('tipo_usuario_id')->references('id')->on('tipo_usuarios');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ class CreateProductoEventosTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('producto_eventos');
+        Schema::dropIfExists('cargos');
     }
 };

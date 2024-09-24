@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permiso;
 use Illuminate\Http\Request;
-use App\Models\TipoUsuario;
 
-
-class TipoUsuarioController extends Controller
+class PermisoController extends Controller
 {
     public function getData(Request $request)
     {
@@ -25,14 +24,14 @@ class TipoUsuarioController extends Controller
             'nombre' => 'required|string|max:255',
         ]);
 
-        $tipo_usuario = TipoUsuario::create([
+        $permiso = Permiso::create([
             'nombre' => $request->nombre,
         ]);
 
         return response()->json([
             'status' => '200',
             'message' => 'guardado con exito',
-            'data' => $tipo_usuario,
+            'data' => $permiso,
         ]);
 
     }
@@ -43,28 +42,37 @@ class TipoUsuarioController extends Controller
         'nombre' => 'required|string|max:255',
     ]);
 
-    $tipo_usuario = TipoUsuario::findOrFail($id);
-
-    $tipo_usuario->update([
+    $permiso = Permiso::findOrFail($id);
+    $permiso->update([
         'nombre' => $request->nombre,
     ]);
 
     return response()->json([
         'status' => '200',
-        'message' => 'Actualizado con éxito',
-        'data' => $tipo_usuario,
+        'message' => 'guardado con éxito',
+        'data' => $permiso,
     ]);
+}
+
+    public function response(Request $request){
+        return response()->json([
+            'status' => '200',
+            'message' => 'actualizado con exito',
+            'data' => $permiso,
+        ]);
 
     }
 
     public function delete($id)
     {
-        $proveedor = Proveedor::findOrFail($id);
-        $proveedor->delete();
+        $permiso = permiso::findOrFail($id);
+        $permiso->delete();
+
         return response()->json([
             'status' => '200',
             'message' => 'eliminado con exito',
         ]);
 
     }
+
 }
