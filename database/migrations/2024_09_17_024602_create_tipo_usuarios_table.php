@@ -4,21 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProveedorsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('proveedors', function (Blueprint $table) {
+        Schema::create('tipo_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('cc');
-            $table->string('empresa');
-            $table->string('direccion');
-            $table->string('cargo');
-            $table->string('telefono');
+            $table->string('nombre'); // Añadir la columna 'nombre'
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ class CreateProveedorsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('proveedors');
+        Schema::dropIfExists('tipo_usuarios');
     }
 };
