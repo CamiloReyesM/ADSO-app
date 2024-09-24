@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ClinteController;
 use App\Http\Controllers\TipoUsuarioController;
 use App\Http\Controllers\CargoController;
 
@@ -15,9 +14,6 @@ use App\Http\Controllers\CargoController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::put('/tipousuarios/update/id', [ClinteController::class, 'update']);
-
 Route::get('/', function () {
     return view('welcome');
 });

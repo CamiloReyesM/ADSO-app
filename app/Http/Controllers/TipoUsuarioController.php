@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TipoUsuario;
 
+
 class TipoUsuarioController extends Controller
 {
     public function getData(Request $request)
@@ -58,8 +59,8 @@ class TipoUsuarioController extends Controller
 
     public function delete($id)
     {
-        $tipo_usuario = TipoUsuario::findOrFail($id);
-        $tipo_usuario->delete();
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->delete();
         return response()->json([
             'status' => '200',
             'message' => 'eliminado con exito',
